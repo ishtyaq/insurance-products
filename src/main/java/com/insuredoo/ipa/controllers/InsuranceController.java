@@ -18,7 +18,6 @@ import com.insuredoo.ipa.dto.ProductSearch;
 import com.insuredoo.ipa.entities.Company;
 
 @Controller
-@RequestMapping("/insurance")
 public class InsuranceController {
 
 	@Autowired
@@ -26,7 +25,7 @@ public class InsuranceController {
 	
 	
 	
-	@RequestMapping(value="/find")
+	@RequestMapping(value="/")
 	public String displaySearchForm(HttpServletRequest request, Model model) {
 	//	Company aCompany = new Company();
 		ProductSearch prodSearch = new ProductSearch();
