@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="layouts :: head"> 
+	</head>
+	
+	<body>
+	
+	<nav th:replace="layouts :: navbar"></nav>
+
+		<div class="container">
+			<br>
+			<h3>Search Insurance</h3>
+			<hr>
+			
+			<!--  Add New Project Button -->
+			
+			<form class="form-inline" method="POST" th:object="${productSearch}">
+			 
+				<label for="inlineFormInputName1">Price From:  &nbsp;</label>
+  				<input type="number" min="0" max="1000000" th:field="${productSearch.priceFrom}" class="form-control mb-2 mr-sm-2" id="inlineFormInputName1" placeholder="Min Price">
+				
+				<label for="inlineFormInputName2">Price To: &nbsp;</label>
+  				<input type="number" min="0" max="10000000" th:field="${productSearch.priceTo}" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Max Price">
+			 
+				
+				<div class="input-group mb-3 mr-sm-3">
+					<label for="companyId">Company: &nbsp;</label>
+				    <select class="form-control" th:field="${productSearch.companyName}"  id="companyId">
+				    <option value="0">All</option>
+				    <option th:each="takafulRow : ${takafuls}" th:value="${takafulRow.companyName}" th:text="${takafulRow.companyName}"></option>
+				    </select>
+				</div>
+				<button type="submit" name="searchresult" value="result" class="btn btn-primary mb-2">Search</button>
+				
+				<div class="input-group mb-3 mr-sm-3">
+				    <label for="staticResult">&nbsp;Matching Result(s):</label>
+				     
+				      <input type="text" readonly class="form-control-plaintext" id="staticResult" th:value="${productSearch.dataSize}">
+				    
+				  </div>
+				
+			</form>
+			
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Company</th>
+						<th>Product</th>
+						<th>Amount</th>
+						<th>Brands Coverage</th>
+						<th>Tax Percentage</th>
+						<th>Is Takaful?</th>
+					</tr>
+				</thead>		
+				<tbody>
+					<tr th:each="aProduct : ${productList}">
+						<td th:text="${aProduct.companyName}"/>
+						<td th:text="${aProduct.product}"/>
+						<td th:text="${aProduct.amount}"/>
+						<td th:text="${aProduct.brandCoveraged}"/>
+						<td th:text="${aProduct.taxPercentage}"/>
+						<td th:text="${aProduct.takaful==1?'Yes':'No'}"/>
+					</tr>
+				</tbody>
+			
+			</table>
+		</div>
+	</body>
+	
+</html>
