@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -28,8 +29,6 @@ import com.insuredoo.ipa.util.CsvUtil;
 @Service
 public class InsuranceServicempl implements InsuranceService {
 
-	String prodFileName="classpath:data/Products.csv";
-	String companyFileName="classpath:data/Takaful.csv";
 	
 	@Autowired
 	ProductRepository prodRepository;
@@ -42,11 +41,14 @@ public class InsuranceServicempl implements InsuranceService {
 	
 	@Override
 	public List<Product> getAllProducts(List<Company> listCompany) {
-		File file;
+		//File file;
 		List<Product> productList=null;
 		try {
-			file = ResourceUtils.getFile(prodFileName);
-			if(!file.exists())
+			
+			ClassPathResource resource = new ClassPathResource("data/Products.csv");
+			
+			//file = ResourceUtils.getFile(prodFileName);
+			if(!resource.getFile().exists())
 				throw new FileNotFoundException();
 			//System.out.println("inside displaySearchResult, File Found : " + file.exists());
 			if(listCompany==null) {
@@ -61,7 +63,7 @@ public class InsuranceServicempl implements InsuranceService {
 				if(company.getIslamic().equalsIgnoreCase("yes"))
 					takafuls.add(company.getCompanyName());
 			}
-			productList = prodRepository.getAllProducts(file, takafuls);
+			productList = prodRepository.getAllProducts(resource.getFile(), takafuls);
 
 		} 
 		catch (IOException e) {
@@ -76,15 +78,17 @@ public class InsuranceServicempl implements InsuranceService {
 
 	@Override
 	public List<Company> getAllCompanies() {
-		File file;
+		//File file;
 		List<Company> listCompany=null;
 		try {
-			file = ResourceUtils.getFile(companyFileName);
-			if(!file.exists())
+			//file = ResourceUtils.getFile(companyFileName);
+			ClassPathResource resource = new ClassPathResource("data/Takaful.csv");
+			
+			if(!resource.getFile().exists())
 				throw new FileNotFoundException();
 			else
 				System.out.println("File found");
-			listCompany = csvUtil.read(Company.class, file); // compRepository.getAllCompanies(file);
+			listCompany = csvUtil.read(Company.class, resource.getInputStream()); // compRepository.getAllCompanies(file);
 			
 			
 

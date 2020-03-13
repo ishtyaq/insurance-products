@@ -21,7 +21,7 @@ import com.insuredoo.ipa.entities.Product;
 public class CsvUtilImpl implements CsvUtil {
 
 	@Override
-	public <T> List<T> read(Class<T> clazz, File csvFile) throws IOException {
+	public <T> List<T> read(Class<T> clazz, InputStream csvFile) throws IOException {
 		 CsvMapper mapper = new CsvMapper();
 		 mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 		 mapper.enable(CsvParser.Feature.SKIP_EMPTY_LINES)

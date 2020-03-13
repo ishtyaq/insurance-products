@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +19,20 @@ import com.insuredoo.ipa.service.InsuranceService;
 import com.insuredoo.ipa.dto.ProductSearch;
 import com.insuredoo.ipa.entities.Company;
 
+
 @Controller
 public class InsuranceController {
 
 	@Autowired
-	InsuranceService insuranceService;
+	private InsuranceService insuranceService;
 	
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceController.class);
 	
 	@RequestMapping(value="/")
 	public String displaySearchForm(HttpServletRequest request, Model model) {
 	//	Company aCompany = new Company();
 		ProductSearch prodSearch = new ProductSearch();
-		
+		LOGGER.info("Start displaySearchForm") ;
 		prodSearch.setDataSize(0);
 		model.addAttribute("productSearch",prodSearch);
 		//model.addAttribute("company",aCompany);
@@ -43,7 +46,8 @@ public class InsuranceController {
 			List<Company> listCompany = insuranceService.getAllCompanies();
 			 
 	
-			System.out.println(listCompany.size());
+			LOGGER.info("Companies loaded: " + listCompany.size());
+			
 			model.addAttribute("takafuls",listCompany);
 			request.getSession().setAttribute("s-listTakaful",listCompany);
 			//fileReader.
@@ -52,20 +56,13 @@ public class InsuranceController {
 			System.out.println(e.toString());
 		}
 		
-		
+		LOGGER.info("End displaySearchForm") ;
 		return "find-insurance";
 	}
 	
-	@RequestMapping(value="/find", method=RequestMethod.POST)
+	@RequestMapping(value="/", method=RequestMethod.POST)
 	public String displaySearchResult(HttpServletRequest request,Model model, ProductSearch productSearch) {
 		
-		 
-		//Company aTakaful = new Company();
-		//Product aProduct = new Product();
-		//System.out.println(price);
-		
-		
-		//model.addAttribute("aTakaful",aCompany);
 		
 		System.out.println("Compnay" + productSearch.getPriceFrom());
 		List<Company> listCompany=null;
