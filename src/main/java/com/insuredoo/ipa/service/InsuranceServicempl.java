@@ -48,10 +48,6 @@ public class InsuranceServicempl implements InsuranceService {
 			//ClassPathResource resource = new ClassPathResource("data/Products.csv");
 			InputStream in = this.getClass().getClassLoader().getResourceAsStream("data/Products.csv");
 
-			//file = ResourceUtils.getFile(prodFileName);
-//			if(!resource.getFile().exists())
-//				throw new FileNotFoundException();
-			//System.out.println("inside displaySearchResult, File Found : " + file.exists());
 			if(listCompany==null) {
 				listCompany=this.getAllCompanies();
 			}
@@ -82,14 +78,9 @@ public class InsuranceServicempl implements InsuranceService {
 		//File file;
 		List<Company> listCompany=null;
 		try {
-			//file = ResourceUtils.getFile(companyFileName);
-			//ClassPathResource resource = new ClassPathResource("data/Takaful.csv");
+
 			InputStream in = this.getClass().getClassLoader().getResourceAsStream("data/Takaful.csv");
 
-//			if(!resource.getFile().exists())
-//				throw new FileNotFoundException();
-//			else
-//				System.out.println("File found");
 			listCompany = csvUtil.read(Company.class, in); // compRepository.getAllCompanies(file);
 			
 			
@@ -155,32 +146,6 @@ public class InsuranceServicempl implements InsuranceService {
 			.filter(allPredicates.stream().reduce(x->true, Predicate::and))
 			.sorted(compareByPrice).limit(15)
 	        .collect(Collectors.toList());
-        //		if(productSearch.getPriceFrom()!=null && productSearch.getPriceTo()!=null){
-//			productResult = productList.parallelStream()
-//				.filter(line -> line.getAmount().intValue() >= productSearch.getPriceFrom())
-//				.filter(line -> line.getAmount().intValue() <= productSearch.getPriceTo())
-//				.sorted(compareByPrice)
-//                .collect(Collectors.toList());
-//		}
-//		else if(productSearch.getPriceFrom()!=null){
-//			productResult = productList.parallelStream()
-//					.filter(line -> line.getAmount().intValue() >= productSearch.getPriceFrom())
-//					//.filter(line -> line.getAmount().intValue() <= productSearch.getPriceTo())
-//					.sorted(compareByPrice)
-//	                .collect(Collectors.toList());
-//		}
-//		else if(productSearch.getPriceTo()!=null){
-//			productResult = productList.parallelStream()
-//					//.filter(line -> line.getAmount().intValue() >= productSearch.getPriceFrom())
-//					.filter(line -> line.getAmount().intValue() <= productSearch.getPriceTo())
-//					.sorted(compareByPrice)
-//	                .collect(Collectors.toList());
-//			}
-//		else {
-//			productResult = productList.parallelStream()
-//					.sorted(compareByPrice)
-//	                .collect(Collectors.toList());
-//		}
          
         return productResult;
 	}

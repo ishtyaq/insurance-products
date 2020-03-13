@@ -80,19 +80,19 @@ class InsuranceProductsApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Search product for unknown company, must fail!")
+	@DisplayName("Search product for unknown company, must pass!")
 	void testPriceByUnknownCompany() {
 		ProductSearch productSearch = new ProductSearch();
 		 
 		productSearch.setCompanyName("Apple");
 		List<Product> list = insuranceService.findBestPriceByData(null, productSearch);
-		if(list.size()==0) {
+		if(list.size()>0) {
 			 
 			fail("Search Failed");
 		}
 		 
 		//System.out.println(list.size());
-		assertFalse(list.size()==0, "Size: " + list.size());
+		assertFalse(list.size()>0, "Size: " + list.size());
 		
 	}
 	@Test
@@ -112,25 +112,25 @@ class InsuranceProductsApplicationTests {
 		
 	}
 	@Test
-	@DisplayName("Search product for High Price, must fail!")
+	@DisplayName("Search product for High Price, must pass!")
 	void testPriceByHighPrice() {
 		ProductSearch productSearch = new ProductSearch();
 		 
 		productSearch.setPriceFrom(54000l);
 		List<Product> list = insuranceService.findBestPriceByData(null, productSearch);
-		if(list.size()==0) {
+		if(list.size()>0) {
 			 
 			fail("Search Failed for price: " + productSearch.getPriceFrom());
 		}
 		 
 		//System.out.println(list.size());
-		assertFalse(list.size()==0, "Size: " + list.size());
+		assertFalse(list.size()>0, "Size: " + list.size());
 		
 	}
 	@Test
 	@DisplayName("Search products for null data, must fail!")
 	void testPriceByNullData() {
-		assertThrows(IllegalArgumentException.class,
+		assertThrows(NullPointerException.class,
 	            ()->{insuranceService.findBestPriceByData(null, null);} );
 		
 	}
@@ -138,7 +138,7 @@ class InsuranceProductsApplicationTests {
 	@Test
 	@DisplayName("Search products by providing wrong price, must fail!")
 	void testPriceByWrongData() {
-		assertThrows(NullPointerException.class,
+		assertThrows(IllegalArgumentException.class,
 	            ()->{insuranceService.findBestPrice(null, Long.parseLong("ab"));} );
 		
 	}
