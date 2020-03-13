@@ -45,11 +45,12 @@ public class InsuranceServicempl implements InsuranceService {
 		List<Product> productList=null;
 		try {
 			
-			ClassPathResource resource = new ClassPathResource("data/Products.csv");
-			
+			//ClassPathResource resource = new ClassPathResource("data/Products.csv");
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("data/Products.csv");
+
 			//file = ResourceUtils.getFile(prodFileName);
-			if(!resource.getFile().exists())
-				throw new FileNotFoundException();
+//			if(!resource.getFile().exists())
+//				throw new FileNotFoundException();
 			//System.out.println("inside displaySearchResult, File Found : " + file.exists());
 			if(listCompany==null) {
 				listCompany=this.getAllCompanies();
@@ -63,7 +64,7 @@ public class InsuranceServicempl implements InsuranceService {
 				if(company.getIslamic().equalsIgnoreCase("yes"))
 					takafuls.add(company.getCompanyName());
 			}
-			productList = prodRepository.getAllProducts(resource.getFile(), takafuls);
+			productList = prodRepository.getAllProducts(in, takafuls);
 
 		} 
 		catch (IOException e) {

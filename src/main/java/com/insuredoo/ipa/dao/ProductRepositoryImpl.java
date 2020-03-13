@@ -2,6 +2,7 @@ package com.insuredoo.ipa.dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 	CsvUtil csvUtil;
 	
 	@Override
-	public List<Product> getAllProducts(File file, HashSet<String> takafuls) throws IOException {
+	public List<Product> getAllProducts(InputStream file, HashSet<String> takafuls) throws IOException {
 		List<Product>  productList = csvUtil.readProducts(file, takafuls);
 		return productList;
 		

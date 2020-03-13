@@ -11,6 +11,6 @@ import com.insuredoo.ipa.entities.Product;
 public interface CsvUtil {
 	public  <T> List<T> read(Class<T> clazz, InputStream csvFile) throws IOException;
 	
-	public  List<Product> readProducts(File csvFile, HashSet<String> takafuls) throws IOException;
+	public  List<Product> readProducts(InputStream csvFile, HashSet<String> takafuls) throws IOException;
 
 }

@@ -33,7 +33,7 @@ public class CsvUtilImpl implements CsvUtil {
 	}
 	
 	@Override
-	public List<Product> readProducts(File csvFile, HashSet<String> takafuls) throws IOException {
+	public List<Product> readProducts(InputStream csvFile, HashSet<String> takafuls) throws IOException {
 		 CsvMapper mapper = new CsvMapper();
 		 mapper.enable(CsvParser.Feature.WRAP_AS_ARRAY);
 
