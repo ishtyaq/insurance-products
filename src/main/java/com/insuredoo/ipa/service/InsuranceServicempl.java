@@ -82,13 +82,14 @@ public class InsuranceServicempl implements InsuranceService {
 		List<Company> listCompany=null;
 		try {
 			//file = ResourceUtils.getFile(companyFileName);
-			ClassPathResource resource = new ClassPathResource("data/Takaful.csv");
-			
-			if(!resource.getFile().exists())
-				throw new FileNotFoundException();
-			else
-				System.out.println("File found");
-			listCompany = csvUtil.read(Company.class, resource.getInputStream()); // compRepository.getAllCompanies(file);
+			//ClassPathResource resource = new ClassPathResource("data/Takaful.csv");
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("data/Takaful.csv");
+
+//			if(!resource.getFile().exists())
+//				throw new FileNotFoundException();
+//			else
+//				System.out.println("File found");
+			listCompany = csvUtil.read(Company.class, in); // compRepository.getAllCompanies(file);
 			
 			
 
